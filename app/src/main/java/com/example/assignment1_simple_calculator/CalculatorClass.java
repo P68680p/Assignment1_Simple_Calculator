@@ -4,12 +4,11 @@ import java.util.ArrayList;
 
 public class CalculatorClass {
 
-    //one record for history
+    //one record for history users' actions
     public static String history = "";
-
     //ArrayList to store String history as elements of ArrayList
     public static ArrayList<String> historyArrayList = new ArrayList<>();
-
+    //String for history list for advanced version
     public static String historyList = "";
 
     public static boolean isNumber(String s) {
@@ -50,12 +49,6 @@ public class CalculatorClass {
         }
     }
 
-//    static void printArray(ArrayList<String> array) {
-//        for (int i = 0; i < array.size(); i++) {
-//            System.out.println(array.get(i));
-//        }
-//    }
-
     public static void parseStringToArrayList(String s) {
         String number = "";
         String symbol;
@@ -74,7 +67,7 @@ public class CalculatorClass {
     public static void calculate() {
         double result = Double.parseDouble(historyArrayList.get(0));
         double operand;
-        String operator ;
+        String operator;
         for (int i = 0; i < historyArrayList.size() - 2; i = i + 2) {
             operator = historyArrayList.get(i + 1);
             operand = Double.parseDouble(historyArrayList.get(i + 2));

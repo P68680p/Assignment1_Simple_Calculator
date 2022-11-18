@@ -84,7 +84,7 @@ public class AdvanceVersion extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View view) {
         String symbol;
-         switch (view.getId()) {
+        switch (view.getId()) {
             case R.id.clearButton:
                 CalculatorClass.history = "";
                 resultText.setText(CalculatorClass.history);
@@ -104,17 +104,22 @@ public class AdvanceVersion extends AppCompatActivity implements View.OnClickLis
                         Toast.makeText(AdvanceVersion.this, "First symbol have to be a number", Toast.LENGTH_SHORT).show();
                     } else {
                         String previousSymbol = String.valueOf(CalculatorClass.history.charAt(CalculatorClass.history.length() - 1));
-                        System.out.println("previous symbol = " + previousSymbol);
                         if (CalculatorClass.isOperator(previousSymbol)) {
                             Toast.makeText(AdvanceVersion.this, "You cannot use two operators in a row, enter a number", Toast.LENGTH_SHORT).show();
                         } else {
                             CalculatorClass.push(symbol);
                             if (symbol.equals("=")) {
-                                CalculatorClass.calculate();
-                                resultText.setText(CalculatorClass.history);
-                                CalculatorClass.historyList+=CalculatorClass.history+"\n";
-                                historyText.setText(CalculatorClass.historyList);
-                                CalculatorClass.history = "";
+                                if (CalculatorClass.historyArrayList.size() < 3) {
+                                    Toast.makeText(AdvanceVersion.this, "You cannot to count it, enter correct data", Toast.LENGTH_SHORT).show();
+                                    CalculatorClass.historyArrayList.clear();
+                                    CalculatorClass.history=CalculatorClass.history.substring(0,CalculatorClass.history.length()-1);
+                                } else {
+                                    CalculatorClass.calculate();
+                                    resultText.setText(CalculatorClass.history);
+                                    CalculatorClass.historyList += CalculatorClass.history + "\n";
+                                    historyText.setText(CalculatorClass.historyList);
+                                    CalculatorClass.history = "";
+                                }
                             } else {
                                 resultText.setText(CalculatorClass.history);
                             }

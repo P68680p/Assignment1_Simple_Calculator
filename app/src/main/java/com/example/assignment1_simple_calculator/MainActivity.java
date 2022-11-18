@@ -91,6 +91,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 startActivity(firstIntent);
                 break;
             default:
+                //get symbol and validate it
                 symbol = ((Button) view).getText().toString();
                 if (CalculatorClass.isNumber(symbol)) {
                     CalculatorClass.push(symbol);
@@ -100,16 +101,21 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         Toast.makeText(MainActivity.this, "First symbol have to be a number", Toast.LENGTH_SHORT).show();
                     } else {
                         String previousSymbol = String.valueOf(CalculatorClass.history.charAt(CalculatorClass.history.length() - 1));
-                        System.out.println("previous symbol = " + previousSymbol);
                         if (CalculatorClass.isOperator(previousSymbol)) {
                             Toast.makeText(MainActivity.this, "You cannot use two operators in a row, enter a number", Toast.LENGTH_SHORT).show();
                         } else {
                             CalculatorClass.push(symbol);
                             if (symbol.equals("=")) {
-                                CalculatorClass.calculate();
-                                resultText.setText(CalculatorClass.history);
-                                CalculatorClass.history = "";
-                            }else {
+                                if (CalculatorClass.historyArrayList.size() < 3) {
+                                    Toast.makeText(MainActivity.this, "You cannot to count it, enter correct data", Toast.LENGTH_SHORT).show();
+                                    CalculatorClass.historyArrayList.clear();
+                                    CalculatorClass.history = CalculatorClass.history.substring(0, CalculatorClass.history.length() - 1);
+                                } else {
+                                    CalculatorClass.calculate();
+                                    resultText.setText(CalculatorClass.history);
+                                    CalculatorClass.history = "";
+                                }
+                            } else {
                                 resultText.setText(CalculatorClass.history);
                             }
                         }
